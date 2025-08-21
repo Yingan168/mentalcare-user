@@ -8,13 +8,8 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        {/* Landing Page */}
         <Route path="/" element={<LandingPage />} />
-
-        {/* Quiz Page */}
         <Route path="/quiz" element={<QuizPage />} />
-
-        {/* Result Page */}
         <Route path="/result" element={<ResultPage />} />
       </Routes>
     </Router>

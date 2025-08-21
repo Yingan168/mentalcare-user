@@ -20,14 +20,6 @@ const QuestionCard = ({ question, onAnswer, currentAnswer }) => {
     return `${baseClasses} border-gray-200 bg-white hover:border-green-400 hover:bg-green-50 hover:shadow-md hover:scale-[1.01] text-gray-700`;
   };
 
-  const getOptionEmoji = (optionText) => {
-    if (optionText.includes("Never") || optionText.includes("Excellent")) return "😊";
-    if (optionText.includes("Rarely") || optionText.includes("Good")) return "🙂";
-    if (optionText.includes("Sometimes") || optionText.includes("Fair")) return "😐";
-    if (optionText.includes("Often") || optionText.includes("Poor")) return "😕";
-    return "😟";
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -54,7 +46,7 @@ const QuestionCard = ({ question, onAnswer, currentAnswer }) => {
         </p>
       </motion.div>
 
-      {/* Options */}
+      {/* Options (emoji removed) */}
       <div className="space-y-4 px-4">
         {question.options.map((option, index) => (
           <motion.button
@@ -67,9 +59,6 @@ const QuestionCard = ({ question, onAnswer, currentAnswer }) => {
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
           >
-            {/* Emoji */}
-            <span className="text-3xl">{getOptionEmoji(option.text)}</span>
-
             {/* Text */}
             <span className="flex-1">{option.text}</span>
 
