@@ -60,53 +60,41 @@ export default function ResultPage() {
   }
 
   return (
-    <div className={`min-h-screen flex items-center justify-center p-6 ${result.color}`}>
-      <div className={`${result.cardBg} p-10 rounded-3xl shadow-2xl border ${result.borderColor} max-w-2xl w-full transform transition-all duration-300`}>
-        
-        {/* Emoji and Header */}
-        <div className="text-center mb-8">
-          <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full ${result.emojiCircle} shadow-lg mb-6 transform transition-transform hover:scale-105`}>
-            <span className="text-5xl">{result.emoji}</span>
-          </div>
-          <h2 className={`text-4xl font-bold ${result.textColor} mb-4 tracking-tight`}>
-            {result.level}
-          </h2>
-          <p className="text-gray-600 text-lg leading-relaxed max-w-lg mx-auto">
-            {result.desc}
-          </p>
+    <div className={`w-full flex flex-col items-center justify-center p-4 md:p-8 ${result.color} rounded-2xl shadow-lg border ${result.borderColor} transition-all duration-300`}>
+      {/* Emoji and Header */}
+      <div className="text-center mb-6">
+        <div className={`inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full ${result.emojiCircle} shadow-lg mb-4 transition-transform hover:scale-105`}>
+          <span className="text-3xl md:text-5xl">{result.emoji}</span>
         </div>
-
-        {/* Tips Section */}
-        <div className="mb-8">
-          <ul className="space-y-4">
-            {result.tips.map((tip, index) => (
-              <li key={index} className="flex items-start gap-4 p-4 rounded-2xl bg-white/60 border border-white/40 shadow-sm hover:shadow-md transition-all duration-200">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-sm">
-                  <span className="text-white text-lg font-bold">✓</span>
-                </div>
-                <span className="text-gray-700 text-base leading-relaxed pt-1">
-                  {tip}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Button */}
-        <div className="text-center">
-          <Link to="/">
-            <button className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-10 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 hover:from-green-600 hover:to-emerald-700">
-              Retake Assessment
-            </button>
-          </Link>
-        </div>
-        
-        {/* Footer */}
-        <div className="text-center mt-6">
-          <p className="text-sm text-gray-500">
-            This assessment is for informational purposes only
-          </p>
-        </div>
+        <h2 className={`text-2xl md:text-3xl font-bold ${result.textColor} mb-2 tracking-tight`}>{result.level}</h2>
+        <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-xl mx-auto">{result.desc}</p>
+      </div>
+      {/* Tips Section */}
+      <div className="mb-6 w-full">
+        <ul className="space-y-3">
+          {result.tips.map((tip, index) => (
+            <li key={index} className="flex items-start gap-3 p-3 rounded-xl bg-white/70 border border-white/40 shadow-sm hover:shadow-md transition-all duration-200">
+              <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-sm">
+                <span className="text-white text-base font-bold">✓</span>
+              </div>
+              <span className="text-gray-700 text-sm md:text-base leading-relaxed pt-1">{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* Button */}
+      <div className="text-center">
+        <Link to="/quiz">
+          <button className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-7 py-3 rounded-xl font-semibold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 hover:from-green-600 hover:to-emerald-700">
+            Retake Assessment
+          </button>
+        </Link>
+      </div>
+      {/* Footer */}
+      <div className="text-center mt-4">
+        <p className="text-xs md:text-sm text-gray-500">
+          This assessment is for informational purposes only
+        </p>
       </div>
     </div>
   );

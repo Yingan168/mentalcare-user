@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import heroImg from "../assets/hero-image.png";
+import personalgrowth from "../assets/personal growth-bro.svg";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -243,7 +243,7 @@ export default function HomePage() {
             <div className="order-first md:order-none">
               <div className="mx-auto w-full max-w-2xl overflow-hidden rounded-3xl">
                 <img
-                  src={heroImg}
+                  src={personalgrowth}
                   alt="Illustration for mental wellness"
                   className="w-full h-[26rem] md:h-[32rem] object-cover object-center"
                 />
