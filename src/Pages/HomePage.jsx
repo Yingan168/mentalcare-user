@@ -18,6 +18,8 @@ export default function HomePage() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ export default function HomePage() {
           getJSON("/api/options/specializations"),
           getJSON("/api/options/genders")
         ]);
-        setSpecializations(specializationsData.map(s => ({ id: s, label: s })));
+        setSpecializations(specializationsData); 
         setGenders(gendersData.map(g => ({ id: g, label: g })));
       } catch (err) {
         setError(err.message);
@@ -46,7 +48,7 @@ export default function HomePage() {
       try {
         const response = await postJSON('/api/invites/validate', { inviteCode: inviteCode.trim() });
         localStorage.setItem("inviteCode", inviteCode.trim());
-        localStorage.setItem("employerId", response.employerId);
+        localStorage.setItem("companyId", response.employerId); 
       } catch (err) {
         setInviteError("Invalid invitation code.");
         setShowPreQuiz(false); // Close modal to show the error
@@ -54,12 +56,14 @@ export default function HomePage() {
       }
     } else {
       localStorage.removeItem("inviteCode");
-      localStorage.removeItem("employerId");
+      localStorage.removeItem("companyId");
     }
 
     localStorage.setItem("userGender", selectedGender);
     localStorage.setItem("userSpecialization", selectedSpecialization);
     navigate("/assessment");
+
+    setIsSubmitting(true);
   };
 
   if (isLoading) return <div className="text-center p-10">Loading...</div>;
@@ -67,59 +71,56 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white antialiased">
-      <Header />
+      
       <div className="bg-gradient-to-b from-emerald-50/70 via-white to-white">
-        <section className="mx-auto max-w-full md:px-32 md:py-32">
-          <div className="grid items-center gap-20 md:grid-cols-2">
-            <div className="">
+        <section className="mx-auto max-w-full px-4 sm:px-32 py-8 sm:py-32">
+          <div className="grid items-center gap-10 sm:gap-20 grid-cols-1 sm:grid-cols-2">
+            <div>
               <div className="flex items-center gap-3 mb-4">
-                <h1 className="text-5xl font-bold leading-[1.1] tracking-tight text-emerald-700 md:text-7xl">
+                <h1 className="text-3xl sm:text-7xl font-bold leading-[1.1] tracking-tight text-emerald-700">
                   MentalCare
                 </h1>
               </div>
-              <h2 className="mt-3 text-3xl font-semibold text-gray-700 md:text-4xl">
+              <h2 className="mt-3 text-xl sm:text-4xl font-semibold text-gray-700">
                 We Will Help You To Improve Your Mental Health
               </h2>
-              <p className="mt-5 max-w-xl text-lg leading-7 text-slate-600 md:text-xl md:leading-8">
+              <p className="mt-5 max-w-md sm:max-w-xl text-base sm:text-xl leading-7 sm:leading-8 text-slate-600">
                 MentalCare offers a quick check-in to reflect on stress, mood, and daily habits,
                 then suggests simple next steps you can try today.
               </p>
-
               <div className="mt-8">
-                <h3 className="text-lg font-semibold text-emerald-700 mb-2">How it works</h3>
-                <ol className="list-decimal list-inside space-y-1 text-slate-700 text-base">
+                <h3 className="text-base sm:text-lg font-semibold text-emerald-700 mb-2">How it works</h3>
+                <ol className="list-decimal list-inside space-y-1 text-slate-700 text-sm sm:text-base">
                   <li>Answer a few quick questions (5 min)</li>
                   <li>Get a personalized summary instantly</li>
                   <li>See simple tips and next steps</li>
                   <li>Retake anytime, always free</li>
                 </ol>
               </div>
-
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm md:text-base">
+              <div className="mt-6 flex flex-wrap items-center gap-2 sm:gap-3">
+                <span className="rounded-full bg-emerald-600 px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm font-medium text-white shadow-sm md:text-base">
                   23 Questions
                 </span>
-                <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 md:text-base">
+                <span className="rounded-full bg-white px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 md:text-base">
                   ~5 Minutes
                 </span>
               </div>
-
-              <form onSubmit={(e) => { e.preventDefault(); setShowPreQuiz(true); }} className="mt-8 max-w-2xl">
-                <label htmlFor="inviteCode" className="block text-sm font-medium text-slate-800 md:text-base">
+              <form onSubmit={(e) => { e.preventDefault(); setShowPreQuiz(true); }} className="mt-8 max-w-md sm:max-w-2xl">
+                <label htmlFor="inviteCode" className="block text-xs sm:text-sm font-medium text-slate-800 md:text-base">
                   Optional: paste code that provide by your organization
                 </label>
-                <div className="mt-3 flex items-stretch gap-3">
+                <div className="mt-3 flex flex-col sm:flex-row items-stretch gap-2 sm:gap-3">
                   <input
                     id="inviteCode"
                     type="text"
                     placeholder="e.g., bf8f5771-7af5-4a46-99a9-3c706fbdefea"
                     value={inviteCode}
                     onChange={(e) => setInviteCode(e.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 md:text-lg"
+                    className="w-full rounded-2xl border border-slate-200 bg-white px-3 sm:px-4 py-2 sm:py-3.5 text-xs sm:text-base text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 md:text-lg"
                   />
                   <button
                     type="submit"
-                    className="inline-flex shrink-0 items-center rounded-2xl bg-gradient-to-r from-emerald-500 to-green-500 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:scale-105 hover:from-emerald-600 hover:to-green-600 focus:outline-none focus:ring-4 focus:ring-emerald-100"
+                    className="inline-flex shrink-0 items-center rounded-2xl bg-gradient-to-r from-emerald-500 to-green-500 px-5 sm:px-8 py-2 sm:py-4 text-base sm:text-lg font-bold text-white shadow-lg transition hover:scale-105 hover:from-emerald-600 hover:to-green-600 focus:outline-none focus:ring-4 focus:ring-emerald-100"
                     aria-label="Start assessment"
                   >
                     <span className="mr-2">🚀</span> Start Assessment
@@ -130,27 +131,28 @@ export default function HomePage() {
                   This field is optional — leave it blank to proceed normally.
                 </p>
               </form>
-
               <div className="mt-10">
-                <div className="rounded-xl bg-white/80 p-4 shadow ring-1 ring-emerald-100">
-                  <p className="text-base text-slate-700 italic">
+                <div className="rounded-xl bg-white/80 p-3 sm:p-4 shadow ring-1 ring-emerald-100">
+                  <p className="text-xs sm:text-base text-slate-700 italic">
                     “This quick check helped me reflect and take positive steps. Highly recommend!”
                   </p>
-                  <span className="block mt-2 text-sm text-emerald-700 font-semibold">— Recent User</span>
+                  <span className="block mt-2 text-xs sm:text-sm text-emerald-700 font-semibold">— Recent User</span>
                 </div>
               </div>
             </div>
-            <div className="order-first md:order-none">
-              <img
-                src={personalgrowth}
-                alt="Illustration for mental wellness"
-                className="w-full h-[26rem] md:h-[32rem] object-cover object-center"
-              />
+            <div className="order-first sm:order-none">
+              <div className="mx-auto w-full max-w-md sm:max-w-2xl overflow-hidden rounded-3xl">
+                <img
+                  src={personalgrowth}
+                  alt="Illustration for mental wellness"
+                  className="w-full h-56 sm:h-[26rem] md:h-[32rem] object-cover object-center"
+                />
+              </div>
             </div>
           </div>
         </section>
       </div>
-      <Footer />
+      
 
       {/* Pre-quiz modal JSX */}
       {showPreQuiz && (
@@ -175,14 +177,14 @@ export default function HomePage() {
             <div className="mb-6">
               <label className="block text-sm font-medium text-slate-800 mb-2">Select your specialization:</label>
               <div className="flex gap-3 flex-wrap">
-                {specializations.map(s => (
+                {specializations.map(spec => (
                   <button
-                    key={s.id}
+                    key={spec.id}
                     type="button"
-                    onClick={() => setSelectedSpecialization(s.id)}
-                    className={`px-4 py-2 rounded-full border ${selectedSpecialization === s.id ? "bg-emerald-600 text-white border-emerald-600" : "bg-white text-slate-700 border-slate-300 hover:bg-emerald-50"}`}
+                    onClick={() => setSelectedSpecialization(spec.id)}
+                    className={`px-4 py-2 rounded-full border ${selectedSpecialization === spec.id ? "bg-emerald-600 text-white border-emerald-600" : "bg-white text-slate-700 border-slate-300 hover:bg-emerald-50"}`}
                   >
-                    {s.label}
+                    {spec.name}
                   </button>
                 ))}
               </div>
@@ -190,7 +192,7 @@ export default function HomePage() {
             <button
               type="button"
               onClick={handleStartQuiz}
-              disabled={!selectedGender || !selectedSpecialization}
+              disabled={!selectedGender || !selectedSpecialization || isSubmitting}
               className={`w-full mt-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow transition hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               Confirm & Start Assessment

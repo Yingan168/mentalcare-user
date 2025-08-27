@@ -36,32 +36,30 @@ const QuestionCard = ({ question, onAnswer, currentAnswer, questionIndex, totalQ
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="w-full max-w-lg mx-auto p-0 min-h-[520px] flex flex-col justify-between"
+      className="w-full max-w-xs sm:max-w-lg mx-auto p-2 sm:p-0 min-h-[420px] sm:min-h-[520px] flex flex-col justify-between"
     >
-      <div className="mb-4 flex items-center justify-between text-xs text-slate-500">
+      <div className="mb-2 sm:mb-4 flex items-center justify-between text-xs text-slate-500">
         <span>Question {questionIndex + 1} of {totalQuestions}</span>
       </div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-center mb-4"
+        className="text-center mb-2 sm:mb-4"
       >
-        <div className="inline-flex items-center justify-center w-10 h-10 bg-emerald-500 rounded-full mb-2 shadow-md">
-          <span className="text-base text-white">❓</span>
+        <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-emerald-500 rounded-full mb-1 sm:mb-2 shadow-md">
+          <span className="text-sm sm:text-base text-white">❓</span>
         </div>
-        <h2 className="text-base md:text-lg font-bold text-gray-900 leading-tight px-1">
+        <h2 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 leading-tight px-1">
           {question.question}
         </h2>
         <p className="text-gray-600 mt-1 text-xs">
           Please select the option that best describes your experience
         </p>
       </motion.div>
-      <div className="space-y-2 px-1">
+      <div className="space-y-1 sm:space-y-2 px-0 sm:px-1">
         {(question.options || []).map((option, index) => {
-          // This boolean correctly checks if the current option's weight matches the selected one
           const isSelected = selectedOption?.weight === option.weight;
-
           return (
             <motion.button
               key={index}
@@ -71,7 +69,7 @@ const QuestionCard = ({ question, onAnswer, currentAnswer, questionIndex, totalQ
               transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
               onClick={() => handleOptionSelect(option)}
               onKeyDown={e => handleKeyDown(e, index)}
-              className={`group relative w-full p-3 text-left rounded-xl border text-sm flex items-center space-x-3 shadow-sm focus:outline-none transition-all duration-300 font-medium ${
+              className={`group relative w-full p-2 sm:p-3 text-left rounded-xl border text-xs sm:text-sm flex items-center space-x-2 sm:space-x-3 shadow-sm focus:outline-none transition-all duration-300 font-medium ${
                 isSelected
                   ? "border-emerald-500 bg-emerald-50 text-emerald-800 shadow-lg scale-[1.01]"
                   : "border-gray-200 bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-md hover:scale-[1.01] text-gray-700"
@@ -87,14 +85,14 @@ const QuestionCard = ({ question, onAnswer, currentAnswer, questionIndex, totalQ
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center"
+                  className="w-4 h-4 sm:w-5 sm:h-5 bg-emerald-500 rounded-full flex items-center justify-center"
                 >
-                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </motion.div>
               ) : (
-                <div className="w-5 h-5 border-2 border-gray-300 rounded-full group-hover:border-emerald-400 transition-colors" />
+                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-gray-300 rounded-full group-hover:border-emerald-400 transition-colors" />
               )}
             </motion.button>
           );
@@ -104,7 +102,7 @@ const QuestionCard = ({ question, onAnswer, currentAnswer, questionIndex, totalQ
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="flex flex-col items-center mt-4 px-1 gap-2"
+        className="flex flex-col items-center mt-2 sm:mt-4 px-0 sm:px-1 gap-1 sm:gap-2"
       >
         <p className="text-xs text-gray-500 text-center">
           {selectedOption ? (
@@ -115,12 +113,12 @@ const QuestionCard = ({ question, onAnswer, currentAnswer, questionIndex, totalQ
             "Choose the option that best reflects your current situation"
           )}
         </p>
-        <div className="flex gap-2 w-full justify-center">
+        <div className="flex gap-1 sm:gap-2 w-full justify-center">
           <button
             type="button"
             onClick={onPrev}
             disabled={questionIndex === 0}
-            className={`inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-1 text-sm font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200 disabled:opacity-50 disabled:cursor-not-allowed`}
+            className={`inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-2 sm:px-4 py-1 text-xs sm:text-sm font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200 disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             ← Previous
           </button>
@@ -128,7 +126,7 @@ const QuestionCard = ({ question, onAnswer, currentAnswer, questionIndex, totalQ
             type="button"
             onClick={onNext}
             disabled={!selectedOption}
-            className={`inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-1 text-sm font-semibold text-white shadow transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-100 disabled:opacity-50 disabled:cursor-not-allowed`}
+            className={`inline-flex items-center justify-center rounded-full bg-emerald-600 px-3 sm:px-5 py-1 text-xs sm:text-sm font-semibold text-white shadow transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-100 disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             Next
           </button>
