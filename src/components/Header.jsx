@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <header className="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
-      <div className="mx-auto max-w-full px-32 py-4 flex items-center justify-between">
+      <div className="max-w-full px-32 py-4 flex items-center justify-between">
         {/* Logo / Title centered on mobile, left on desktop */}
         <Link to="/" className="flex items-center gap-3 group cursor-pointer">
           <img
@@ -17,39 +17,38 @@ export default function Header() {
         </Link>
         {/* Navigation */}
         <nav className="flex items-center gap-6" aria-label="Main navigation">
-          <Link
+          {/* <Link
             to="/"
             className="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-emerald-200"
           >
             Home
-          </Link>
+          </Link> */}
           <Link
-            to="/quiz"
+            to="/assessment"
             className="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-emerald-200"
           >
-            Quiz
+            Assessment
           </Link>
           <Link
             to="/about"
             className="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-emerald-200"
           >
-            About
+            About Us
           </Link>
-          <Link
+          {/* <Link
             to="/contact"
             className="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-emerald-200"
           >
             Contact
-          </Link>
-          <a
-            href="https://www.findahelpline.com/"
-            target="_blank"
+          </Link> */}
+          <Link
+            to="/get-help"
             rel="noopener noreferrer"
             className="ml-4 inline-flex items-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-200"
             aria-label="Get Help (external link)"
           >
             Get Help
-          </a>
+          </Link>
         </nav>
       </div>
     </header>
